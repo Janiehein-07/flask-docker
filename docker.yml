@@ -1,0 +1,20 @@
+name: CI/ CD pipeline
+on: push
+jobs:
+  build:
+   runs-on: ubuntu-latest
+   steps:
+    -name:checkout
+     uses:actions/checkout@v2
+
+    -name:Build docker Image
+     run:docker build -t janiehein/flask-app:latest
+
+    -name:login into docker hub
+     uses:docker/login-action@v3
+     with:
+      username: ${{janiehein}}
+      password: ${{janiehein}}
+
+    -name:push to docker hub
+     run:docker push janiehein/flask-app:latest
